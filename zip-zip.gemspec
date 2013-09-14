@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name        = 'zip-zip'
-  spec.version     = '0.1'
+  spec.version     = '0.1.pre'
   spec.date        = '2013-09-15'
   spec.summary     = 'Ease the migration to RubyZip v1.0.0'
   spec.description =
