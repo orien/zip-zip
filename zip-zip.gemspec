@@ -11,7 +11,7 @@ Include zip-zip in your Gemfile and everythings coming up roses!
   spec.authors     = ['Orien Madgwick']
   spec.email       = 'orien.madgwick@gmail.com'
   spec.files       = ['lib/zip/zip.rb']
-  spec.homepage    = 'http://rubygems.org/gems/zip-zip'
+  spec.homepage    = 'https://github.com/orien/zip-zip'
   spec.license     = 'MIT'
   spec.add_runtime_dependency 'rubyzip', '>= 1.0.0'
 end
