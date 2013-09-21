@@ -1,5 +1,6 @@
 zip-zip
 =======
+[![Gem Version](https://badge.fury.io/rb/zip-zip.png)](http://badge.fury.io/rb/zip-zip)
 
 So you've upgraded a gem dependency that requires RubyZip v1.0.0 or higher.
 While all your other dependencies use the interface provided by v0.x.
