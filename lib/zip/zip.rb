@@ -9,3 +9,15 @@ Zip::ZipInputStream          =  Zip::InputStream
 Zip::ZipOutputStream         =  Zip::OutputStream
 Zip::ZipStreamableDirectory  =  Zip::StreamableDirectory
 Zip::ZipStreamableStream     =  Zip::StreamableStream
+
+module Zip
+  class OptionsAdapter
+    def []=(key, value)
+      Zip.send("#{key}=", value)
+    end
+  end
+
+  def self.options
+    @adapter = OptionsAdapter.new
+  end
+end
