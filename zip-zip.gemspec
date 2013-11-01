@@ -1,12 +1,12 @@
 Gem::Specification.new do |spec|
   spec.name        = 'zip-zip'
-  spec.version     = '0.1'
+  spec.version     = '0.2'
   spec.date        = '2013-09-15'
   spec.summary     = 'Ease the migration to RubyZip v1.0.0'
   spec.description =
 '''
 In Gem hell migrating to RubyZip v1.0.0?
-Include zip-zip in your Gemfile and everythings coming up roses!
+Include zip-zip in your Gemfile and everything\'s coming up roses!
 '''
   spec.authors     = ['Orien Madgwick']
   spec.email       = 'orien.madgwick@gmail.com'
