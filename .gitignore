@@ -1,3 +1,4 @@
+bin
 
 *.gem
 *.rbc
@@ -19,3 +20,4 @@ tmp
 _yardoc
 doc/
 
+*.swp
