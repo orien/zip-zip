@@ -1,0 +1,19 @@
+PATH
+  remote: .
+  specs:
+    zip-zip (0.2)
+      rubyzip (>= 1.0.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    rake (10.2.2)
+    rubyzip (1.0.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.6)
+  rake
+  zip-zip!
