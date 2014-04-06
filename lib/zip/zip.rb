@@ -11,10 +11,18 @@ Zip::ZipStreamableDirectory  =  Zip::StreamableDirectory
 Zip::ZipStreamableStream     =  Zip::StreamableStream
 IOExtras                     =  Zip::IOExtras
 
+Zip::Zip::RUNNING_ON_WINDOWS =  Zip::RUNNING_ON_WINDOWS
+
 module Zip
 
   class Entry
     alias :is_directory :directory?
+    alias :localHeaderOffset :local_header_offset
+  end
+
+  class ExtraField
+    alias :local_length :local_size
+    alias :c_dir_length :c_dir_size
   end
 
   class OptionsAdapter
