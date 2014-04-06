@@ -12,6 +12,11 @@ Zip::ZipStreamableStream     =  Zip::StreamableStream
 IOExtras                     =  Zip::IOExtras
 
 module Zip
+
+  class Entry
+    alias :is_directory :directory?
+  end
+
   class OptionsAdapter
     def []=(key, value)
       Zip.send("#{key}=", value)
@@ -21,4 +26,5 @@ module Zip
   def self.options
     @adapter = OptionsAdapter.new
   end
+
 end
