@@ -1,12 +1,5 @@
-#!/usr/bin/env ruby
-
-$VERBOSE = true
-
-$: << "../lib"
-
+require '0.9.9/test_helper'
 require 'zip/zipfilesystem'
-require 'test/unit'
-require 'fileutils'
 
 require 'digest/sha1'
 
@@ -35,13 +28,13 @@ include Zip
 
 class ZipFsFileNonmutatingTest < Test::Unit::TestCase
   def setup
-    @zipsha = Digest::SHA1.file("data/zipWithDirs.zip")
-    @zipFile = ZipFile.new("data/zipWithDirs.zip")
+    @zipsha = Digest::SHA1.file("#{SRC_DIR}/zipWithDirs.zip")
+    @zipFile = ZipFile.new("#{SRC_DIR}/zipWithDirs.zip")
   end
 
   def teardown
     @zipFile.close if @zipFile
-    assert_equal(@zipsha, Digest::SHA1.file("data/zipWithDirs.zip"))
+    assert_equal(@zipsha, Digest::SHA1.file("#{SRC_DIR}/zipWithDirs.zip"))
   end
 
   def test_umask
@@ -284,26 +277,26 @@ class ZipFsFileNonmutatingTest < Test::Unit::TestCase
     assert(! @zipFile.file.zero?("file1"))
     assert(@zipFile.file.zero?("dir1"))
     blockCalled = false
-    ZipFile.open("data/generated/5entry.zip") {
+    ZipFile.open("#{GEN_DIR}/5entry.zip") {
       |zf|
       blockCalled = true
-      assert(zf.file.zero?("data/generated/empty.txt"))
+      assert(zf.file.zero?("#{GEN_DIR}/empty.txt"))
     }
     assert(blockCalled)
 
     assert(! @zipFile.file.stat("file1").zero?)
     assert(@zipFile.file.stat("dir1").zero?)
     blockCalled = false
-    ZipFile.open("data/generated/5entry.zip") {
+    ZipFile.open("#{GEN_DIR}/5entry.zip") {
       |zf|
       blockCalled = true
-      assert(zf.file.stat("data/generated/empty.txt").zero?)
+      assert(zf.file.stat("#{GEN_DIR}/empty.txt").zero?)
     }
     assert(blockCalled)
   end
 
   def test_expand_path
-    ZipFile.open("data/zipWithDirs.zip") {
+    ZipFile.open("#{SRC_DIR}/zipWithDirs.zip") {
       |zf|
       assert_equal("/", zf.file.expand_path("."))
       zf.dir.chdir "dir1"
@@ -432,12 +425,12 @@ class ZipFsFileNonmutatingTest < Test::Unit::TestCase
   end
 
   def test_foreach
-    ZipFile.open("data/generated/zipWithDir.zip") do |zf|
+    ZipFile.open("#{GEN_DIR}/zipWithDir.zip") do |zf|
       ref = []
-      File.foreach("data/file1.txt") { |e| ref << e }
+      File.foreach("#{SRC_DIR}/file1.txt") { |e| ref << e }
       index = 0
 
-      zf.file.foreach("data/file1.txt") do |l|
+      zf.file.foreach("#{SRC_DIR}/file1.txt") do |l|
         #Ruby replaces \n with \r\n automatically on windows
         newline = Zip::RUNNING_ON_WINDOWS ? l.gsub(/\r\n/, "\n") : l
         assert_equal(ref[index], newline)
@@ -446,12 +439,12 @@ class ZipFsFileNonmutatingTest < Test::Unit::TestCase
       assert_equal(ref.size, index)
     end
 
-    ZipFile.open("data/generated/zipWithDir.zip") do |zf|
+    ZipFile.open("#{GEN_DIR}/zipWithDir.zip") do |zf|
       ref = []
-      File.foreach("data/file1.txt", " ") { |e| ref << e }
+      File.foreach("#{SRC_DIR}/file1.txt", " ") { |e| ref << e }
       index = 0
 
-      zf.file.foreach("data/file1.txt", " ") do |l|
+      zf.file.foreach("#{SRC_DIR}/file1.txt", " ") do |l|
         #Ruby replaces \n with \r\n automatically on windows
         newline = Zip::RUNNING_ON_WINDOWS ? l.gsub(/\r\n/, "\n") : l
         assert_equal(ref[index], newline)
@@ -462,7 +455,7 @@ class ZipFsFileNonmutatingTest < Test::Unit::TestCase
   end
 
   def test_glob
-    ZipFile.open('data/globTest.zip') do |zf|
+    ZipFile.open("#{SRC_DIR}/globTest.zip") do |zf|
       {
         'globTest/foo.txt' => ['globTest/foo.txt'],
         '*/foo.txt' => ['globTest/foo.txt'],
@@ -481,7 +474,7 @@ class ZipFsFileNonmutatingTest < Test::Unit::TestCase
       end
     end
 
-    ZipFile.open('data/globTest.zip') do |zf|
+    ZipFile.open("#{SRC_DIR}/globTest.zip") do |zf|
       results = []
       zf.glob('**/foo.txt') do |match|
         results << "<#{match.class.name}: #{match.to_s}>"
@@ -512,9 +505,9 @@ class ZipFsFileNonmutatingTest < Test::Unit::TestCase
 #  end
 
   def test_readlines
-    ZipFile.open("data/generated/zipWithDir.zip") do |zf|
-      orig_file = File.readlines("data/file1.txt")
-      zip_file = zf.file.readlines("data/file1.txt")
+    ZipFile.open("#{GEN_DIR}/zipWithDir.zip") do |zf|
+      orig_file = File.readlines("#{SRC_DIR}/file1.txt")
+      zip_file = zf.file.readlines("#{SRC_DIR}/file1.txt")
 
       #Ruby replaces \n with \r\n automatically on windows
       zip_file.each { |l| l.gsub!(/\r\n/, "\n") } if Zip::RUNNING_ON_WINDOWS
@@ -524,12 +517,12 @@ class ZipFsFileNonmutatingTest < Test::Unit::TestCase
   end
 
   def test_read
-    ZipFile.open("data/generated/zipWithDir.zip") do |zf|
-      orig_file = File.read("data/file1.txt")
+    ZipFile.open("#{GEN_DIR}/zipWithDir.zip") do |zf|
+      orig_file = File.read("#{SRC_DIR}/file1.txt")
 
       #Ruby replaces \n with \r\n automatically on windows
       zip_file = Zip::RUNNING_ON_WINDOWS ? \
-          zf.file.read("data/file1.txt").gsub(/\r\n/, "\n") : zf.file.read("data/file1.txt")
+          zf.file.read("#{SRC_DIR}/file1.txt").gsub(/\r\n/, "\n") : zf.file.read("#{SRC_DIR}/file1.txt")
       assert_equal(orig_file, zip_file)
     end
   end
@@ -539,7 +532,7 @@ end
 class ZipFsFileStatTest < Test::Unit::TestCase
 
   def setup
-    @zipFile = ZipFile.new("data/zipWithDirs.zip")
+    @zipFile = ZipFile.new("#{SRC_DIR}/zipWithDirs.zip")
   end
 
   def teardown
@@ -601,9 +594,9 @@ class ZipFsFileStatTest < Test::Unit::TestCase
 end
 
 class ZipFsFileMutatingTest < Test::Unit::TestCase
-  TEST_ZIP = "zipWithDirs_copy.zip"
+  TEST_ZIP = "#{TRG_DIR}/zipWithDirs_copy.zip"
   def setup
-    FileUtils.cp("data/zipWithDirs.zip", TEST_ZIP)
+    FileUtils.cp("#{SRC_DIR}/zipWithDirs.zip", TEST_ZIP)
   end
 
   def teardown
@@ -699,10 +692,10 @@ class ZipFsFileMutatingTest < Test::Unit::TestCase
 end
 
 class ZipFsDirectoryTest < Test::Unit::TestCase
-  TEST_ZIP = "zipWithDirs_copy.zip"
+  TEST_ZIP = "#{TRG_DIR}/zipWithDirs_copy.zip"
 
   def setup
-    FileUtils.cp("data/zipWithDirs.zip", TEST_ZIP)
+    FileUtils.cp("#{SRC_DIR}/zipWithDirs.zip", TEST_ZIP)
   end
 
   def test_delete

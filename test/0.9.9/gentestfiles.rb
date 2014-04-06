@@ -1,15 +1,11 @@
-#!/usr/bin/env ruby
-
-$VERBOSE = true
-
 class TestFiles
-  RANDOM_ASCII_FILE1  = "data/generated/randomAscii1.txt"
-  RANDOM_ASCII_FILE2  = "data/generated/randomAscii2.txt"
-  RANDOM_ASCII_FILE3  = "data/generated/randomAscii3.txt"
-  RANDOM_BINARY_FILE1 = "data/generated/randomBinary1.bin"
-  RANDOM_BINARY_FILE2 = "data/generated/randomBinary2.bin"
+  RANDOM_ASCII_FILE1  = "#{GEN_DIR}/randomAscii1.txt"
+  RANDOM_ASCII_FILE2  = "#{GEN_DIR}/randomAscii2.txt"
+  RANDOM_ASCII_FILE3  = "#{GEN_DIR}/randomAscii3.txt"
+  RANDOM_BINARY_FILE1 = "#{GEN_DIR}/randomBinary1.bin"
+  RANDOM_BINARY_FILE2 = "#{GEN_DIR}/randomBinary2.bin"
 
-  EMPTY_TEST_DIR      = "data/generated/emptytestdir"
+  EMPTY_TEST_DIR      = "#{GEN_DIR}/emptytestdir"
 
   ASCII_TEST_FILES  = [ RANDOM_ASCII_FILE1, RANDOM_ASCII_FILE2, RANDOM_ASCII_FILE3 ] 
   BINARY_TEST_FILES = [ RANDOM_BINARY_FILE1, RANDOM_BINARY_FILE2 ]
@@ -20,7 +16,7 @@ class TestFiles
     if (recreate || 
 	! (TEST_FILES.inject(true) { |accum, element| accum && File.exists?(element) }))
       
-      Dir.mkdir "data/generated" rescue Errno::EEXIST
+      FileUtils.mkdir_p GEN_DIR
 
       ASCII_TEST_FILES.each_with_index do |filename, index|
         create_random_ascii(filename, 1E4 * (index+1))
@@ -36,6 +32,7 @@ class TestFiles
 
   private
   def TestFiles.create_random_ascii(filename, size)
+    puts Dir.pwd
     File.open(filename, "wb") do |file|
       while (file.tell < size)
         file << rand
@@ -75,7 +72,7 @@ class TestZipFile
   end
 
   def TestZipFile.create_test_zips(recreate)
-    files = Dir.entries("data/generated")
+    files = Dir.entries(GEN_DIR)
     if (recreate || 
 	    ! (files.index(File.basename(TEST_ZIP1.zip_name)) &&
 	       files.index(File.basename(TEST_ZIP2.zip_name)) &&
@@ -88,27 +85,27 @@ class TestZipFile
 	       files.index("longBinary.bin") ))
 
       raise "failed to create test zip '#{TEST_ZIP1.zip_name}'" unless
-          system("zip #{TEST_ZIP1.zip_name} data/file2.txt")
+          system("zip #{TEST_ZIP1.zip_name} #{SRC_DIR}/file2.txt")
       raise "failed to remove entry from '#{TEST_ZIP1.zip_name}'" unless
-          system("zip #{TEST_ZIP1.zip_name} -d data/file2.txt")
+          system("zip #{TEST_ZIP1.zip_name} -d #{SRC_DIR}/file2.txt")
       
-      File.open("data/generated/empty.txt", "w") {}
-      File.open("data/generated/empty_chmod640.txt", "w") { |f| f.chmod(0640) }
+      File.open("#{GEN_DIR}/empty.txt", "w") {}
+      File.open("#{GEN_DIR}/empty_chmod640.txt", "w") { |f| f.chmod(0640) }
       
-      File.open("data/generated/short.txt", "w") { |file| file << "ABCDEF" }
+      File.open("#{GEN_DIR}/short.txt", "w") { |file| file << "ABCDEF" }
       ziptestTxt=""
-      File.open("data/file2.txt") { |file| ziptestTxt=file.read }
-      File.open("data/generated/longAscii.txt", "w") do |file|
+      File.open("#{SRC_DIR}/file2.txt") { |file| ziptestTxt=file.read }
+      File.open("#{GEN_DIR}/longAscii.txt", "w") do |file|
         while (file.tell < 1E5)
           file << ziptestTxt
           end
       end
       
       testBinaryPattern=""
-      File.open("data/generated/empty.zip") { |file| testBinaryPattern=file.read }
+      File.open("#{GEN_DIR}/empty.zip") { |file| testBinaryPattern=file.read }
       testBinaryPattern *= 4
       
-      File.open("data/generated/longBinary.bin", "wb") do |file|
+      File.open("#{GEN_DIR}/longBinary.bin", "wb") do |file|
         while (file.tell < 3E5)
           file << testBinaryPattern << rand << "\0"
         end
@@ -144,12 +141,14 @@ class TestZipFile
       "the necessary test files at http://sf.net/projects/rubyzip."
   end
 
-  TEST_ZIP1 = TestZipFile.new("data/generated/empty.zip", [])
-  TEST_ZIP2 = TestZipFile.new("data/generated/5entry.zip", %w{ data/generated/longAscii.txt data/generated/empty.txt data/generated/empty_chmod640.txt data/generated/short.txt data/generated/longBinary.bin},
-			      "my zip comment")
-  TEST_ZIP3 = TestZipFile.new("data/generated/test1.zip", %w{ data/file1.txt })
-  TEST_ZIP4 = TestZipFile.new("data/generated/zipWithDir.zip", [ "data/file1.txt", 
-				TestFiles::EMPTY_TEST_DIR])
+  TEST_ZIP1 = TestZipFile.new("#{GEN_DIR}/empty.zip", [])
+  TEST_ZIP2 = TestZipFile.new(
+    "#{GEN_DIR}/5entry.zip",
+    [ "#{GEN_DIR}/longAscii.txt", "#{GEN_DIR}/empty.txt", "#{GEN_DIR}/empty_chmod640.txt", "#{GEN_DIR}/short.txt", "#{GEN_DIR}/longBinary.bin" ],
+    "my zip comment"
+  )
+  TEST_ZIP3 = TestZipFile.new("#{GEN_DIR}/test1.zip", [ "#{SRC_DIR}/file1.txt" ])
+  TEST_ZIP4 = TestZipFile.new("#{GEN_DIR}/zipWithDir.zip", [ "#{SRC_DIR}/file1.txt", TestFiles::EMPTY_TEST_DIR])
 end
 
 

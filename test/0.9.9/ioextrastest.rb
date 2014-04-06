@@ -1,11 +1,4 @@
-#!/usr/bin/env ruby
-
-$VERBOSE = true
-
-$: << "../lib"
-
-require 'test/unit'
-require 'zip/ioextras'
+require '0.9.9/test_helper'
 
 include IOExtras
 
