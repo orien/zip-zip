@@ -9,6 +9,7 @@ Zip::ZipInputStream          =  Zip::InputStream
 Zip::ZipOutputStream         =  Zip::OutputStream
 Zip::ZipStreamableDirectory  =  Zip::StreamableDirectory
 Zip::ZipStreamableStream     =  Zip::StreamableStream
+IOExtras                     =  Zip::IOExtras
 
 module Zip
   class OptionsAdapter
