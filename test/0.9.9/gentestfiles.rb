@@ -32,7 +32,6 @@ class TestFiles
 
   private
   def TestFiles.create_random_ascii(filename, size)
-    puts Dir.pwd
     File.open(filename, "wb") do |file|
       while (file.tell < size)
         file << rand
