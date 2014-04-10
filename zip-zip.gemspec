@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name        = 'zip-zip'
-  spec.version     = 0.3
+  spec.version     = 0.4
   spec.summary     = 'Ease the migration to RubyZip v1.0.0'
   spec.description =
 '''
