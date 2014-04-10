@@ -1,22 +1,15 @@
 PATH
   remote: .
   specs:
-    zip-zip (0.3)
+    zip-zip (0.4)
       rubyzip (>= 1.0.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    coderay (1.1.0)
-    method_source (0.8.2)
     minitest (4.7.5)
-    pry (0.9.12.6)
-      coderay (~> 1.0)
-      method_source (~> 0.8)
-      slop (~> 3.4)
     rake (10.2.2)
     rubyzip (1.0.0)
-    slop (3.5.0)
 
 PLATFORMS
   ruby
@@ -24,6 +17,5 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 1.6)
   minitest (= 4.7.5)
-  pry
   rake
   zip-zip!
