@@ -1,6 +1,4 @@
-require 'minitest/autorun'
-require 'zip'
-require_relative '../lib/zip/zip'
+require 'test_helper'
 
 describe Zip, '#options[]' do
   it 'translates the 0.9 Zip.options[<name>] interface to the new Zip.<name> interface' do
