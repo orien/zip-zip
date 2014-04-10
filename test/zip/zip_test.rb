@@ -2,7 +2,7 @@
 require 'test_helper'
 
 describe Zip, '#options[]' do
-  after { Zip.continue_on_exists_proc = false }
+  after { Zip.reset! }
 
   it 'translates the 0.9 Zip.options[<name>] interface to the new Zip.<name> interface' do
     Zip.options[:continue_on_exists_proc] = '123'
