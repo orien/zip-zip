@@ -1,5 +1,6 @@
 require 'zip'
 
+Zip::Zip                     =  Zip
 Zip::ZipCentralDirectory     =  Zip::CentralDirectory
 Zip::ZipEntry                =  Zip::Entry
 Zip::ZipEntrySet             =  Zip::EntrySet
@@ -13,8 +14,8 @@ IOExtras                     =  Zip::IOExtras
 
 Zip::Zip::RUNNING_ON_WINDOWS =  Zip::RUNNING_ON_WINDOWS
 
-module Zip
 
+module Zip
   class Entry
     alias :is_directory :directory?
     alias :localHeaderOffset :local_header_offset
@@ -25,14 +26,17 @@ module Zip
     alias :c_dir_length :c_dir_size
   end
 
-  class OptionsAdapter
-    def []=(key, value)
+  module OptionsAdapter
+    def self.[]=(key, value)
       Zip.send("#{key}=", value)
+    end
+
+    def self.[](key)
+      Zip.send(key)
     end
   end
 
-  def self.options
-    @adapter = OptionsAdapter.new
+  def options
+    OptionsAdapter
   end
-
 end
