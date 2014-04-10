@@ -1,3 +1,4 @@
+# encoding: utf-8
 require '0.9.9/test_helper'
 
 include IOExtras

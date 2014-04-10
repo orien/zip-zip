@@ -1,3 +1,4 @@
+# encoding: utf-8
 class TestFiles
   RANDOM_ASCII_FILE1  = "#{GEN_DIR}/randomAscii1.txt"
   RANDOM_ASCII_FILE2  = "#{GEN_DIR}/randomAscii2.txt"
