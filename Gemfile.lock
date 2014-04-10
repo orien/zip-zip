@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    zip-zip (0.2)
+    zip-zip (0.3)
       rubyzip (>= 1.0.0)
 
 GEM
