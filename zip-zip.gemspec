@@ -21,5 +21,6 @@ Include zip-zip in your Gemfile and everything\'s coming up roses!
   spec.add_runtime_dependency 'rubyzip', '>= 1.0.0'
   spec.add_development_dependency 'bundler', '~> 1.6'
   spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'minitest', '4.7.5'
   spec.add_development_dependency 'pry'
 end

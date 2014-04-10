@@ -1,5 +1,7 @@
 require 'zip/zip'
 
+gem "minitest"
+require 'minitest/autorun'
 require 'test/unit'
 
 TRG_DIR = "tmp"
