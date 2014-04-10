@@ -12,9 +12,6 @@ Zip::ZipStreamableDirectory  =  Zip::StreamableDirectory
 Zip::ZipStreamableStream     =  Zip::StreamableStream
 IOExtras                     =  Zip::IOExtras
 
-Zip::Zip::RUNNING_ON_WINDOWS =  Zip::RUNNING_ON_WINDOWS
-
-
 module Zip
   class Entry
     alias :is_directory :directory?
