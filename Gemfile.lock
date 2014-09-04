@@ -8,7 +8,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     minitest (4.7.5)
-    rake (10.2.2)
+    rake (10.3.2)
     rubyzip (1.0.0)
 
 PLATFORMS
