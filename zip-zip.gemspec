@@ -19,7 +19,8 @@ Include zip-zip in your Gemfile and everything\'s coming up roses!
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'rubyzip', '>= 1.0.0'
-  spec.add_development_dependency 'bundler', '~> 1.6'
+  spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'minitest', '4.7.5'
+  spec.add_development_dependency 'minitest'
+  spec.add_development_dependency 'test-unit'
 end
