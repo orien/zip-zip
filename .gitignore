@@ -6,6 +6,7 @@ bin
 .config
 .ruby-version
 coverage
+Gemfile.lock
 InstalledFiles
 lib/bundler/man
 pkg
