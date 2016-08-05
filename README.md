@@ -1,6 +1,6 @@
 # zip-zip
 
-[![Gem Version](https://badge.fury.io/rb/zip-zip.png)](http://badge.fury.io/rb/zip-zip)
+[![Gem Version](https://badge.fury.io/rb/zip-zip.svg)](https://badge.fury.io/rb/zip-zip)
 [![Build Status](https://travis-ci.org/orien/zip-zip.svg?branch=master)](https://travis-ci.org/orien/zip-zip)
 
 So you've upgraded a gem dependency that requires RubyZip v1.0.0 or higher.
