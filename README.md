@@ -1,7 +1,8 @@
 # zip-zip
 
-[![Gem Version](https://badge.fury.io/rb/zip-zip.svg)](https://badge.fury.io/rb/zip-zip)
 [![Build Status](https://travis-ci.org/orien/zip-zip.svg?branch=master)](https://travis-ci.org/orien/zip-zip)
+[![Gem Version](https://img.shields.io/gem/v/zip-zip.svg?maxAge=2592000)](https://rubygems.org/gems/zip-zip)
+[![Gem Downloads](https://img.shields.io/gem/dt/zip-zip.svg?maxAge=2592000)](https://rubygems.org/gems/zip-zip)
 
 So you've upgraded a gem dependency that requires RubyZip v1.0.0 or higher.
 While all your other dependencies use the interface provided by v0.x.
