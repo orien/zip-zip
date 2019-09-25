@@ -1,6 +1,6 @@
 # zip-zip
 
-[![Build Status](https://travis-ci.org/orien/zip-zip.svg?branch=master)](https://travis-ci.org/orien/zip-zip)
+[![Build Status](https://github.com/orien/zip-zip/workflows/build/badge.svg)](https://github.com/orien/zip-zip/actions)
 [![Gem Version](https://img.shields.io/gem/v/zip-zip.svg?maxAge=2592000)](https://rubygems.org/gems/zip-zip)
 [![Gem Downloads](https://img.shields.io/gem/dt/zip-zip.svg?maxAge=2592000)](https://rubygems.org/gems/zip-zip)
 
